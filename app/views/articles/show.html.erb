@@ -1,14 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @article.title %>
+ <strong>Title:</strong>
+ <%= @article.title %>
 </p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @article.body %>
+ <strong>Body:</strong>
+ <%= @article.body %>
 </p>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Edit', edit_article_path(@article.id) %> |
 <%= link_to 'Back', articles_path %>
+
+<h3>Comments</h3>
+
+<% @article.comments.each do |comment| %>
+ <p>
+   <strong><%= comment.author %> says:</strong>
+ </p>
+
+ <p><%= comment.body %></p>
+
+ <%= button_to 'Delete', article_comment_path(@article.id, comment.id), method: :delete %>
+<% end %>
+
+<%= link_to 'Create comment', new_article_comment_path(@article.id) %>
